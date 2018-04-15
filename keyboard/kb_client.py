@@ -60,7 +60,7 @@ class Keyboard():
 		while have_dev==False:
 			try:
 				#try and get a keyboard - Enter the path to the keyboard u want to use HERE
-				self.dev = InputDevice("/dev/input/event4")
+				self.dev = InputDevice("/dev/input/event5")
 				have_dev=True
 			except OSError:
 				print "Keyboard not found, waiting 3 seconds and retrying"

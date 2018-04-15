@@ -18,7 +18,7 @@ Sony D5803 Android 6 smartphone (bluetooth HID v1.1 host role)
 
 ## Step 1: Install requirements and configure setup
 - run `sudo ./setup.sh`
-- if the keyboard you want to use is not `/dev/input/event4` change `self.dev = InputDevice("/dev/input/event4")` in  *kb_client.py* file with the according file of your system
+- if the keyboard you want to use is not `/dev/input/event5` change `self.dev = InputDevice("/dev/input/event5")` in the *keyboard/kb_client.py* file. You can determine what your keyboard is by running the command `sudo evtest`
 - if you want to deploy this tool on multiple devices you should change the advertised bluetooth name in the startup script
 
 ## Step 2: Run
@@ -38,3 +38,27 @@ Sony D5803 Android 6 smartphone (bluetooth HID v1.1 host role)
 
 # Disclaimer:
 This tool is a slightly modified version of https://github.com/quangthanh010290/BL_keyboard_RPI in order to work for ubuntu. See this tutorial http://www.mlabviet.com/2017/09/make-raspberry-pi3-as-emulator.html as well as this [video demo](https://www.youtube.com/watch?v=fFpIvjS4AXs) for a step by step installation guide.
+
+# Troubleshooting
+
+## Bluetooth server
+
+```
+sudo /etc/init.d/bluetooth stop
+sudo killall bluetoothd
+sudo /usr/sbin/bluetoothd --nodetach --debug -p time
+```
+
+## Pairing
+
+Note that for the pairing process, you may need to do the following:
+
+    sudo /usr/bin/bluetoothctl
+
+```
+> agent on
+> default-agent
+> scan on
+> discoverable on
+```
+

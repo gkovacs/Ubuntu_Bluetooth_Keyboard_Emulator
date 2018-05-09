@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #Stop the background process
 sudo /etc/init.d/bluetooth stop
 # Turn on Bluetooth

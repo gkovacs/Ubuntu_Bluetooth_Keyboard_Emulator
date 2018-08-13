@@ -18,7 +18,7 @@ Sony D5803 Android 6 smartphone (bluetooth HID v1.1 host role)
 
 ## Step 1: Install requirements and configure setup
 - run `sudo ./setup.sh`
-- if the keyboard you want to use is not `/dev/input/event5` change `self.dev = InputDevice("/dev/input/event5")` in the *keyboard/kb_client.py* file. You can determine what your keyboard is by running the command `sudo evtest`
+- if the keyboard you want to use is not `/dev/input/event4` change `self.dev = InputDevice("/dev/input/event4")` in the *keyboard/kb_client.py* file. You can determine what your keyboard is by running the command `sudo evtest`
 - if you want to deploy this tool on multiple devices you should change the advertised bluetooth name in the startup script
 
 ## Step 2: Run

@@ -29,11 +29,14 @@ class BtkStringClient():
         """
 
         #constants
-    	KEY_DOWN_TIME=0.01
-    	KEY_DELAY=0.03
+    	KEY_DOWN_TIME=0.04
+    	KEY_DELAY=0.08
 
 
-        def __init__(self):
+
+
+        def __init__(self,chartable):
+            self.chartable=chartable
 
             #the structure for a bt keyboard input report (size is 10 bytes)
 
@@ -157,12 +160,12 @@ class BtkStringClient():
 
             for c in string_to_send: # split into chars
 
-                events = keylayout_german.chartable[c]
+                events = self.chartable[c]
                 for e in events: # send key stroke(s) for one char
                     for modifier in e[0]:
-                        dc.state[2][mods[modifier]]=1 # set modifier(s)
-                    dc.send_keystroke(e[1])   # set and send keycode
-                    dc.state[2]=[0,0,0,0,0,0,0,0] # reset modifier keys
+                        self.state[2][mods[modifier]]=1 # set modifier(s)
+                    self.send_keystroke(e[1])   # set and send keycode
+                    self.state[2]=[0,0,0,0,0,0,0,0] # reset modifier keys
 
 
 
@@ -174,9 +177,9 @@ if __name__ == "__main__":
 
     if(len(sys.argv) <2):
         print "missing parameter: \nUsage: send_string <string to send>"
-        print "sending test string... you can use this verify correctness of your keyboard layout. compare send string and displayed string"
-        dc = BtkStringClient()
-        string_to_send = u" ^@1234567890ß´@qwertzuiopü+#asdfghjklöäyxcvbnm,.-<\"§$%&/()=?QWERTZUIOPÜ*'ASDFGHJKLÖÄYXCVBNM;:_>²³{[]}\\@€~µ|âêîôûÂÊÎÔÛ^áéíóúýÁÉÍÓÚÝ´àèìòùÀÈÌÒÙ`"
+        print "sending test string... you can use this to verify correctness of your GERMAN keyboard layout on the target device. compare sent string and displayed string"
+        dc = BtkStringClient(keylayout_german.chartable)
+        string_to_send = u" ^@1234567890ß´@qwertzuiopü+#asdfghjklöäyxcvbnm,.-<!\"§$%&/()=?QWERTZUIOPÜ*'ASDFGHJKLÖÄYXCVBNM;:_>²³{[]}\\@€~µ|âêîôûÂÊÎÔÛ^áéíóúýÁÉÍÓÚÝ´àèìòùÀÈÌÒÙ`"
         dc.send_string(string_to_send)
         #dc.send_multiple_key_test()
         #dc.send_key_test()
@@ -187,6 +190,6 @@ if __name__ == "__main__":
 
     string_to_send = unicode(sys.argv[1],"utf-8")
     print "Setting up virtual Bluetooth keyboard emulator client"
-    dc = BtkStringClient()
+    dc = BtkStringClient(keylayout_german.chartable)
     dc.send_string(string_to_send)
     print " ====> Done."
